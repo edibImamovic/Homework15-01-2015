@@ -3,12 +3,12 @@ package com.bitcamp.homework;
 /**
  * 
  * @author Edib Imamovic
- *
+ * @versionChanges made in 17.01.2015.
  */
 
 public class MyTree {
 
-	private String data;
+	private int data; // change from type String to int.
 	private MyTree left;
 	private MyTree right;
 
@@ -16,7 +16,7 @@ public class MyTree {
 	 * Constructor with null values
 	 */
 	public MyTree() {
-		data = null;
+		data = 0;
 		left = null;
 		right = null;
 	}
@@ -26,7 +26,7 @@ public class MyTree {
 	 * 
 	 * @param data
 	 */
-	public MyTree(String data) {
+	public MyTree(int data) {
 
 		this.data = data;
 		left = null;
@@ -39,7 +39,7 @@ public class MyTree {
 	 * 
 	 * @return
 	 */
-	public String getData() {
+	public int getData() {
 		return data;
 	}
 
@@ -62,30 +62,46 @@ public class MyTree {
 	}
 
 	/**
+	 * @param left
+	 *            the left to set
+	 */
+	public void setLeft(MyTree left) {
+		this.left = left;
+	}
+
+	/**
+	 * @param right
+	 *            the right to set
+	 */
+	public void setRight(MyTree right) {
+		this.right = right;
+	}
+
+	/**
 	 * Method add
 	 * 
 	 * @param data
 	 */
-	public void addData(String data) {
+	public void addData(int data) {
 
-		if (this.data.equals(null)) {
+		if (this.data == 0) {
 			this.data = data;
 			return;
 		}
 
-		if (this.data.compareToIgnoreCase(data) < 0) {
+		if (this.data <= data) {
 			if (left == null) {
 				left = new MyTree(data);
 			} else {
 				left.addData(data);
 			}
-		}
-
-		else {
-			if (right == null) {
-				right = new MyTree(data);
-			} else {
-				right.addData(data);
+		} else {
+			if (this.data > data) {
+				if (right == null) {
+					right = new MyTree(data);
+				} else {
+					right.addData(data);
+				}
 			}
 		}
 	}
@@ -140,7 +156,7 @@ public class MyTree {
 	 * @param rightData
 	 * @return boolean value
 	 */
-	public boolean isBST(Node nextNode, int leftData, int rightData) {
+	public boolean isBST(MyTree nextNode, int leftData, int rightData) {
 		if (nextNode == null) {
 			return true;
 		}
@@ -150,39 +166,6 @@ public class MyTree {
 
 		return (isBST(nextNode.left, nextNode.getData(), rightData) && isBST(
 				nextNode.right, leftData, nextNode.getData()));
-
-	}
-
-	/**
-	 * Inner class Node for Class MyTree
-	 * 
-	 * @author Edib Imamovic
-	 *
-	 */
-	private class Node {
-
-		public int value;
-		public Node right;
-		public Node left;
-		public Node nextNode;
-
-		public Node(int value, Node right, Node left, Node nextNode) {
-		
-			this.value = value;
-			this.right = right;
-			this.left = left;
-			this.nextNode = nextNode;
-		}
-
-
-		/**
-		 * Getter for data (int value, boolean method)
-		 * 
-		 * @return
-		 */
-		public int getData() {
-			return 0;
-		}
 
 	}
 
